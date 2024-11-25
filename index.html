@@ -1,0 +1,343 @@
+<html><head><base href="/" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nexas Studios</title>
+
+<!-- Material Design Web Components -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+<!-- Using CDN that doesn't require module imports -->
+<script src="https://cdn.jsdelivr.net/npm/@material/web@1.0.0/dist/cdn/all.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/@material/web@1.0.0/dist/cdn/all.css" rel="stylesheet">
+
+<style>
+:root {
+  --md-sys-color-primary: #2196F3;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-surface: #fafbfc;
+  --md-sys-color-on-surface: #1a1c1e;
+  --md-sys-color-secondary: #FF4081;
+  --md-sys-color-tertiary: #4CAF50;
+}
+
+[data-theme="dark"] {
+  --md-sys-color-primary: #82B1FF; 
+  --md-sys-color-on-primary: #003351;
+  --md-sys-color-surface: #1a1c1e;
+  --md-sys-color-on-surface: #e2e2e5;
+  --md-sys-color-secondary: #FF80AB;
+  --md-sys-color-tertiary: #69F0AE;
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--md-sys-color-surface);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+.github-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.github-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--md-sys-color-surface);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  padding: 8px;
+  z-index: 1000;
+}
+
+.github-menu:hover .github-dropdown {
+  display: block;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin: 32px 0;
+}
+
+.project-card {
+  background: var(--md-sys-color-surface);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.project-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  border-color: var(--md-sys-color-secondary);
+}
+
+.project-card md-filled-button {
+  transition: transform 0.2s ease;
+}
+
+.project-card:hover md-filled-button {
+  transform: scale(1.05);
+}
+
+.scroll-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  opacity: 0;
+  transition: all 0.3s ease;
+  transform: translateY(20px);
+}
+
+.scroll-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+md-text-button, md-filled-button {
+  transition: transform 0.2s ease;
+}
+
+md-text-button:hover, md-filled-button:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--md-sys-color-surface);
+    flex-direction: column;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <nav class="nav container">
+    <md-text-button>
+      <span class="material-symbols-outlined">code</span>
+      Nexas Studios
+    </md-text-button>
+
+    <div class="nav-links">
+      <md-text-button href="#about">
+        <span class="material-symbols-outlined">person</span>
+        About
+      </md-text-button>
+      <md-text-button href="#projects">
+        <span class="material-symbols-outlined">folder</span>
+        Projects
+      </md-text-button>
+      <div class="github-menu">
+        <md-text-button>
+          <span class="material-symbols-outlined">hub</span>
+          GitHub
+        </md-text-button>
+        <div class="github-dropdown">
+          <md-text-button href="https://github.com/DevMikey123" target="_blank">
+            <span class="material-symbols-outlined">person</span>
+            @DevMikey123
+          </md-text-button>
+          <md-text-button href="https://github.com/155601-Mikey" target="_blank">
+            <span class="material-symbols-outlined">person</span>
+            @155601-Mikey
+          </md-text-button>
+        </div>
+      </div>
+      <md-icon-button id="theme-toggle">
+        <span class="material-symbols-outlined">dark_mode</span>
+      </md-icon-button>
+    </div>
+
+    <md-icon-button class="hamburger">
+      <span class="material-symbols-outlined">menu</span>
+    </md-icon-button>
+  </nav>
+</header>
+
+<main class="container">
+  <section id="about">
+    <md-elevated-card>
+      <div style="padding: 24px;">
+        <h1>Hello there! 👋</h1>
+        <p>My name is Mikey. I am 15 years old and I love HTML. I do programming for fun and to learn new things.</p>
+      </div>
+    </md-elevated-card>
+  </section>
+
+  <section id="projects">
+    <h2>My Projects</h2>
+    <div class="project-grid">
+      <md-elevated-card class="project-card">
+        <div style="padding: 24px;">
+          <h3>Adder</h3>
+          <p>A simple calculator that adds two numbers together.</p>
+          <div style="display: flex; gap: 8px;">
+            <md-filled-button href="https://devmikey123.github.io/Expiriments/adder.html" target="_blank">
+              <span class="material-symbols-outlined">open_in_new</span>
+              View Live
+            </md-filled-button>
+            <md-filled-button href="https://github.com/DevMikey123/Expiriments" target="_blank">
+              <span class="material-symbols-outlined">code</span>
+              Source Code
+            </md-filled-button>
+          </div>
+        </div>
+      </md-elevated-card>
+
+      <md-elevated-card class="project-card">
+        <div style="padding: 24px;">
+          <h3>Adder Beta</h3>
+          <p>The beta version of Adder with new features.</p>
+          <div style="display: flex; gap: 8px;">
+            <md-filled-button href="https://devmikey123.github.io/Expiriments/adder-beta.html" target="_blank">
+              <span class="material-symbols-outlined">open_in_new</span>
+              View Live
+            </md-filled-button>
+            <md-filled-button href="https://github.com/DevMikey123/Expiriments" target="_blank">
+              <span class="material-symbols-outlined">code</span>
+              Source Code
+            </md-filled-button>
+          </div>
+        </div>
+      </md-elevated-card>
+
+      <md-elevated-card class="project-card">
+        <div style="padding: 24px;">
+          <h3>WikiMaterial</h3>
+          <p>A modern redesign of Wikipedia using the Wikipedia public API.</p>
+          <md-filled-button href="https://wikimaterial.netlify.app/" target="_blank">
+            <span class="material-symbols-outlined">open_in_new</span>
+            View Project
+          </md-filled-button>
+        </div>
+      </md-elevated-card>
+
+      <md-elevated-card class="project-card">
+        <div style="padding: 24px;">
+          <h3>BingoCreator (Alpha)</h3>
+          <p>A tool to create custom bingo boards - currently in development.</p>
+          <md-filled-button href="https://bingocreator.vercel.app/" target="_blank">
+            <span class="material-symbols-outlined">open_in_new</span>
+            View Project
+          </md-filled-button>
+        </div>
+      </md-elevated-card>
+    </div>
+  </section>
+</main>
+
+<md-filled-tonal-button class="scroll-top">
+  <span class="material-symbols-outlined">arrow_upward</span>
+</md-filled-tonal-button>
+
+<script>
+// Theme Toggle
+const themeToggle = document.getElementById('theme-toggle');
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+function setTheme(isDark) {
+  document.body.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  themeToggle.querySelector('span').textContent = isDark ? 'light_mode' : 'dark_mode';
+}
+
+setTheme(prefersDark.matches);
+
+themeToggle.addEventListener('click', () => {
+  const isDark = document.body.getAttribute('data-theme') === 'dark';
+  setTheme(!isDark);
+});
+
+// Mobile Menu
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+});
+
+// Scroll to Top
+const scrollTop = document.querySelector('.scroll-top');
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 200) {
+    scrollTop.classList.add('visible');
+  } else {
+    scrollTop.classList.remove('visible');
+  }
+});
+
+scrollTop.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    document.querySelector(this.getAttribute('href')).scrollIntoView({
+      behavior: 'smooth'
+    });
+  });
+});
+</script>
+
+</body></html>
