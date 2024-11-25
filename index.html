@@ -3,30 +3,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Nexas Studios</title>
 
-<!-- Material Design Web Components -->
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-
-<!-- Using CDN that doesn't require module imports -->
 <script src="https://cdn.jsdelivr.net/npm/@material/web@1.0.0/dist/cdn/all.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/@material/web@1.0.0/dist/cdn/all.css" rel="stylesheet">
 
 <style>
 :root {
-  --md-sys-color-primary: #2196F3;
+  --md-sys-color-primary: #6200EA; /* Enhanced vibrant purple */
   --md-sys-color-on-primary: #ffffff;
   --md-sys-color-surface: #fafbfc;
-  --md-sys-color-on-surface: #1a1c1e;
-  --md-sys-color-secondary: #FF4081;
-  --md-sys-color-tertiary: #4CAF50;
+  --md-sys-color-on-surface: #1a1c1e;  
+  --md-sys-color-secondary: #00C853; /* Vibrant green */
+  --md-sys-color-tertiary: #FF4081; /* Bright pink */
+  --md-sys-color-error: #B00020;
 }
 
 [data-theme="dark"] {
-  --md-sys-color-primary: #82B1FF; 
+  --md-sys-color-primary: #B388FF; /* Light purple for dark mode */
   --md-sys-color-on-primary: #003351;
   --md-sys-color-surface: #1a1c1e;
   --md-sys-color-on-surface: #e2e2e5;
-  --md-sys-color-secondary: #FF80AB;
-  --md-sys-color-tertiary: #69F0AE;
+  --md-sys-color-secondary: #69F0AE; /* Light green for dark mode */
+  --md-sys-color-tertiary: #FF80AB; /* Light pink for dark mode */
+  --md-sys-color-error: #CF6679;
 }
 
 body {
@@ -34,21 +33,33 @@ body {
   font-family: 'Roboto', sans-serif;
   background: var(--md-sys-color-surface);
   color: var(--md-sys-color-on-surface);
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .header {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: var(--md-sys-color-surface);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: color-mix(in srgb, var(--md-sys-color-surface) 95%, var(--md-sys-color-primary));
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.header:hover {
+  transform: translateY(2px);
 }
 
 .nav {
@@ -64,14 +75,32 @@ body {
   align-items: center;
 }
 
+.nav-links md-text-button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-links md-text-button:hover {
+  transform: translateY(-2px) scale(1.05);
+  background: rgba(var(--md-sys-color-primary), 0.1);
+}
+
 .hamburger {
   display: none;
   cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.hamburger:hover {
+  transform: rotate(180deg);
 }
 
 .github-menu {
   position: relative;
   display: inline-block;
+  cursor: pointer;
+  --md-text-button-container-shape: 24px;
+  --md-filled-button-container-shape: 24px;
+  --md-icon-button-container-shape: 12px;
 }
 
 .github-dropdown {
@@ -79,11 +108,20 @@ body {
   position: absolute;
   top: 100%;
   right: 0;
-  background: var(--md-sys-color-surface);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  border-radius: 8px;
+  background: color-mix(in srgb, var(--md-sys-color-surface) 95%, var(--md-sys-color-primary));
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  border-radius: 16px;
   padding: 8px;
   z-index: 1000;
+  transform-origin: top right;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: dropdownAppear 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes dropdownAppear {
+  from { opacity: 0; transform: scale(0.95) translateY(-10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 .github-menu:hover .github-dropdown {
@@ -98,26 +136,45 @@ body {
 }
 
 .project-card {
-  background: var(--md-sys-color-surface);
+  background: linear-gradient(145deg, 
+    var(--md-sys-color-surface),
+    color-mix(in srgb, var(--md-sys-color-surface) 90%, var(--md-sys-color-primary))
+  );
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border: 2px solid transparent;
+  transform-origin: center;
+}
+
+.project-card:nth-child(2n) {
+  background: linear-gradient(145deg,
+    var(--md-sys-color-surface),
+    color-mix(in srgb, var(--md-sys-color-surface) 90%, var(--md-sys-color-secondary))
+  );
+}
+
+.project-card:nth-child(3n) {
+  background: linear-gradient(145deg,
+    var(--md-sys-color-surface),
+    color-mix(in srgb, var(--md-sys-color-surface) 90%, var(--md-sys-color-tertiary))
+  );
 }
 
 .project-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.2);
   border-color: var(--md-sys-color-secondary);
 }
 
 .project-card md-filled-button {
-  transition: transform 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .project-card:hover md-filled-button {
-  transform: scale(1.05);
+  transform: scale(1.1);
+  background-color: var(--md-sys-color-tertiary);
 }
 
 .scroll-top {
@@ -125,21 +182,36 @@ body {
   bottom: 24px;
   right: 24px;
   opacity: 0;
-  transition: all 0.3s ease;
-  transform: translateY(20px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(20px) scale(0.9);
+  --md-filled-tonal-button-container-shape: 28px;
+  background: color-mix(in srgb, var(--md-sys-color-primary) 90%, transparent);
 }
 
 .scroll-top.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
-md-text-button, md-filled-button {
-  transition: transform 0.2s ease;
+.scroll-top:hover {
+  transform: translateY(-4px) scale(1.1);
+  background-color: var(--md-sys-color-tertiary);
+}
+
+md-text-button, md-filled-button, md-icon-button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
 }
 
 md-text-button:hover, md-filled-button:hover {
-  transform: scale(1.05);
+  transform: scale(1.1);
+}
+
+.material-symbols-outlined {
+  vertical-align: middle;
+  margin-right: 8px;
+  font-size: 20px !important;
+  line-height: 1 !important;
 }
 
 @media (max-width: 768px) {
@@ -152,7 +224,13 @@ md-text-button:hover, md-filled-button:hover {
     background: var(--md-sys-color-surface);
     flex-direction: column;
     padding: 16px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    animation: slideDown 0.3s ease-out;
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .nav-links.active {
@@ -195,7 +273,7 @@ md-text-button:hover, md-filled-button:hover {
           </md-text-button>
           <md-text-button href="https://github.com/155601-Mikey" target="_blank">
             <span class="material-symbols-outlined">person</span>
-            @155601-Mikey
+            @155601-Mikey  
           </md-text-button>
         </div>
       </div>
@@ -336,6 +414,16 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     document.querySelector(this.getAttribute('href')).scrollIntoView({
       behavior: 'smooth'
     });
+  });
+});
+
+// Add click event listeners to all md-text-button and md-filled-button elements
+document.querySelectorAll('md-text-button, md-filled-button').forEach(button => {
+  button.addEventListener('click', (e) => {
+    const href = button.getAttribute('href');
+    if (href && !href.startsWith('#')) {
+      window.open(href, '_blank');
+    }
   });
 });
 </script>
