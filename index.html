@@ -1,4 +1,4 @@
-<html><head><base href="https://155601-mikey.github.io/155601-Mikey/"><title>Nexas Studios - Professional Web Solutions</title>
+<html><head><base href="https://nexas-development.vercel.app/"><title>Nexas Studios - Professional Web Solutions</title>
 <meta name="description" content="Nexas Studios - Professional web development solutions and innovative digital experiences">
 <style>
 :root {
@@ -92,43 +92,39 @@ body {
   background: var(--glass);
 }
 
-.github-dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.github-dropdown-content {
+.menu-toggle {
   display: none;
-  position: absolute;
-  background: var(--light);
-  min-width: 200px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-  border-radius: 12px;
+  background: none;
+  border: none;
+  color: var(--dark);
+  font-size: 1.5rem;
+  cursor: pointer;
   padding: 0.5rem;
-  z-index: 1;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-top: 0.5rem;
-  border: 1px solid var(--glass);
-  backdrop-filter: blur(10px);
-}
-
-.github-dropdown:hover .github-dropdown-content {
-  display: block;
-  animation: dropdownFade 0.3s ease;
-}
-
-@keyframes dropdownFade {
-  from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
-  to { opacity: 1; transform: translateX(-50%) translateY(0); }
-}
-
-.github-dropdown-content a {
-  padding: 0.8rem 1rem;
-  display: block;
   border-radius: 8px;
-  margin: 0.2rem 0;
+}
+
+@media screen and (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: var(--light);
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+    border-bottom: 1px solid var(--glass);
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
 }
 
 .hero {
@@ -361,24 +357,21 @@ footer::before {
   background: var(--glass);
 }
 
-.theme-toggle {
-  background: var(--glass);
-  border: none;
-  color: var(--light);
-  padding: 1rem;
-  border-radius: 12px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 600;
-  margin: 2rem auto;
-  transition: all 0.3s;
-}
-
-.theme-toggle:hover {
-  background: var(--primary);
-  transform: translateY(-2px);
+@media (prefers-color-scheme: dark) {
+  .theme-toggle {
+    background: var(--glass);
+    border: none;
+    color: var(--light);
+    padding: 1rem;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    margin: 2rem auto;
+    transition: all 0.3s;
+  }
 }
 
 [data-theme="light"] {
@@ -394,22 +387,25 @@ footer::before {
   --primary: #90caf9;
   --glass: rgba(0, 0, 0, 0.2);
 }
+
+/* Remove the old GitHub dropdown styles */
+.github-dropdown-content,
+.github-dropdown {
+  display: none;
+}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css" rel="stylesheet">
 </head>
 <body data-theme="dark">
   <nav class="navbar">
-    <a href="#" class="logo">Nexas Studios</a>
+    <a href="/" class="logo">Nexas Studios</a>
+    <button class="menu-toggle" aria-label="Toggle Menu">
+      <i class="mdi mdi-menu"></i>
+    </button>
     <div class="nav-links">
       <a href="#projects"><i class="mdi mdi-folder-multiple"></i> Projects</a>
-      <div class="github-dropdown">
-        <a href="#"><i class="mdi mdi-github"></i> GitHub <i class="mdi mdi-chevron-down"></i></a>
-        <div class="github-dropdown-content">
-          <a href="https://github.com/DevMikey123"><i class="mdi mdi-github"></i> DevMikey123</a>
-          <a href="https://github.com/155601-Mikey"><i class="mdi mdi-github"></i> 155601-Mikey</a>
-        </div>
-      </div>
+      <a href="#" onclick="openGithubPopup(event)"><i class="mdi mdi-github"></i> GitHub</a>
       <a href="#contact"><i class="mdi mdi-email"></i> Contact</a>
     </div>
   </nav>
@@ -483,15 +479,22 @@ footer::before {
   <footer id="contact">
     <h3>Connect With Us</h3>
     <p>Let's collaborate on your next project</p>
-    <button class="theme-toggle" onclick="toggleTheme()">
-      <i class="mdi mdi-theme-light-dark"></i>
-      Toggle Theme
-    </button>
     <div class="social-links">
       <a href="https://github.com/DevMikey123"><i class="mdi mdi-github"></i> DevMikey123</a>
       <a href="https://github.com/155601-Mikey"><i class="mdi mdi-github"></i> 155601-Mikey</a>
     </div>
   </footer>
+
+  <div class="contact-popup" id="githubPopup">
+    <div class="close-popup" onclick="closeGithubPopup()">
+      <i class="mdi mdi-close"></i>
+    </div>
+    <h3>GitHub Accounts</h3>
+    <div class="social-links" style="margin-top: 2rem;">
+      <a href="https://github.com/DevMikey123"><i class="mdi mdi-github"></i> DevMikey123</a>
+      <a href="https://github.com/155601-Mikey"><i class="mdi mdi-github"></i> 155601-Mikey</a>
+    </div>
+  </div>
 
   <div class="contact-popup" id="contactPopup">
     <div class="close-popup" onclick="closePopup()">
@@ -506,33 +509,46 @@ footer::before {
   <div class="popup-overlay" id="popupOverlay" onclick="closePopup()"></div>
 
   <script>
-  function showPopup() {
-    document.getElementById('contactPopup').classList.add('show');
-    document.getElementById('popupOverlay').classList.add('show');
-  }
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+
+  menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.navbar')) {
+      navLinks.classList.remove('active');
+    }
+  });
 
   function closePopup() {
     document.getElementById('contactPopup').classList.remove('show');
     document.getElementById('popupOverlay').classList.remove('show');
   }
 
-  function toggleTheme() {
-    const html = document.documentElement;
-    const currentTheme = html.getAttribute('data-theme') || 'dark';
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
+  function openGithubPopup(e) {
+    e.preventDefault();
+    document.getElementById('githubPopup').classList.add('show');
+    document.getElementById('popupOverlay').classList.add('show');
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', savedTheme);
+  function closeGithubPopup() {
+    document.getElementById('githubPopup').classList.remove('show');
+    document.getElementById('popupOverlay').classList.remove('show');
+  }
+
+  document.getElementById('popupOverlay').addEventListener('click', () => {
+    closePopup();
+    closeGithubPopup();
   });
 
   document.querySelector('a[href="#contact"]').addEventListener('click', function(e) {
     e.preventDefault();
-    showPopup();
+    closePopup();
+    document.getElementById('contactPopup').classList.add('show');
+    document.getElementById('popupOverlay').classList.add('show');
   });
   </script>
 
