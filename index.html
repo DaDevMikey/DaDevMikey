@@ -1,6 +1,5 @@
-<html><head><base href="https://nexas-development.vercel.app/"><title>Nexas Studios - Professional Web Solutions</title>
+<html><head><base href="https://github.com/DevMikey123/Expiriments%20is%20the%20links%20to%20where%20adder%20and%20adder%20beta%20is%20stored,%20also%20add%20https://github.com/155601-Mikey/Simple-Clock-HTML,%20and%20make%20the%20github%20title%20in%20the%20menu%20a%20little%20dropdown%20that%20links%20to%20both%20my%20github%20accounts,%20also%20make%20the%20design%20more%20rounded,%20and%20add%20a%20glossy%20effect,%20and%20make%20the%20site%20look%20proffesional"><title>Nexas Studios - Professional Web Solutions</title>
 <meta name="description" content="Nexas Studios - Professional web development solutions and innovative digital experiences">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 :root {
   --primary: #2962ff;
@@ -73,11 +72,13 @@ body {
   display: flex;
   gap: 2.5rem;
   align-items: center;
+  transition: all 0.3s ease-in-out;
+  transform-origin: top;
 }
 
 .nav-links a {
   text-decoration: none;
-  color: var(--dark);
+  color: white !important;
   font-weight: 600;
   transition: all 0.3s;
   display: flex;
@@ -121,10 +122,25 @@ body {
     gap: 1rem;
     border-bottom: 1px solid var(--glass);
     backdrop-filter: blur(10px);
+    transform: scaleY(0);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
   }
 
   .nav-links.active {
     display: flex;
+    transform: scaleY(1);
+    opacity: 1;
+  }
+
+  /* Ensure text doesn't overflow on mobile */
+  .project-card {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  .hero h1 {
+    font-size: 3rem; /* Reduce hero title size on mobile */
   }
 }
 
@@ -280,7 +296,7 @@ footer::before {
 }
 
 .social-links a {
-  color: var(--dark);
+  color: var(--light);
   text-decoration: none;
   transition: all 0.3s;
   padding: 1rem;
@@ -295,7 +311,7 @@ footer::before {
 
 .alpha-tag {
   font-size: 0.8rem;
-  background: var(--accent);
+  background: #4CAF50;
   color: white;
   padding: 0.3rem 0.8rem;
   border-radius: 8px;
@@ -389,10 +405,12 @@ footer::before {
   --glass: rgba(0, 0, 0, 0.2);
 }
 
-/* Remove the old GitHub dropdown styles */
-.github-dropdown-content,
-.github-dropdown {
-  display: none;
+.menu-toggle i {
+  transition: transform 0.3s ease;
+}
+
+.menu-toggle.active i {
+  transform: rotate(180deg);
 }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
@@ -422,18 +440,6 @@ footer::before {
   <section class="projects" id="projects">
     <h2>Featured Projects</h2>
     <div class="project-grid">
-    </div>
-  </section>
-
-      <div class="project-card">
-        <h3>The Holiday Library<span class="alpha-tag">Open Beta</span></h3>
-        <p>Get some overlays for Holidays like Christmas with snow and New Year with Fireworks.</p>
-        <div class="project-links">
-          <a href="https://github.com/155601-Mikey/The-Holiday-Library"><i class="mdi mdi-github"></i> Source Code</a>
-          <a href="https://155601-mikey.github.io/The-Holiday-Library/"><i class="mdi mdi-open-in-new"></i> Live Demo</a>
-        </div>
-      
-      
       <div class="project-card">
         <h3>GitHub Insights</h3>
         <p>An advanced tool for exploring GitHub users, repositories, and gists with a modern interface.</p>
@@ -486,6 +492,15 @@ footer::before {
           <a href="https://wikimaterial.netlify.app/"><i class="mdi mdi-open-in-new"></i> Live Demo</a>
         </div>
       </div>
+
+      <div class="project-card">
+        <h3>The Holiday Library <span class="alpha-tag" style="background: #4CAF50;">OPEN BETA</span></h3>
+        <p>The lobrary for fun Holiday overlays for your website.</p>
+        <div class="project-links">
+          <a href="https://github.com/155601-Mikey/The-Holiday-Library"><i class="mdi mdi-github"></i> Source Code</a>
+          <a href="https://155601-mikey.github.io/The-Holiday-Library/"><i class="mdi mdi-open-in-new"></i> Live Demo</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -524,15 +539,22 @@ footer::before {
   <script>
   const menuToggle = document.querySelector('.menu-toggle');
   const navLinks = document.querySelector('.nav-links');
+  const menuIcon = menuToggle.querySelector('i');
 
   menuToggle.addEventListener('click', () => {
     navLinks.classList.toggle('active');
+    menuToggle.classList.toggle('active');
+    // Toggle between menu and close icons
+    menuIcon.classList.toggle('mdi-menu');
+    menuIcon.classList.toggle('mdi-close');
   });
 
   // Close mobile menu when clicking outside
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.navbar')) {
       navLinks.classList.remove('active');
+      menuToggle.classList.remove('active');
+      menuIcon.classList.replace('mdi-close', 'mdi-menu');
     }
   });
 
