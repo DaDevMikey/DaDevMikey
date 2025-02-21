@@ -4,7 +4,7 @@
 - 💞️ I’m looking to collaborate on ...
 - 📫 How to reach me Discord: DaManMikey
 - 😄 Pronouns: He/Him
-- ⚡ Fun fact: yer
+- ⚡ Fun fact: uhm. ehr, uh, yeah sure :D
 
 <!---
 155601-Mikey/155601-Mikey is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
