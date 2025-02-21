@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @155601-Mikey
 - 👀 I’m interested in coding
-- 🌱 I’m currently learning Dart (flutter)
+- 🌱 I’m currently learning Dart (flutter) and python (Discord.py)
 - 💞️ I’m looking to collaborate on ...
 - 📫 How to reach me Discord: DaManMikey
 - 😄 Pronouns: He/Him
