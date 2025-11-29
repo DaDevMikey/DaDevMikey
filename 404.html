@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | MessageXL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <style>
+      :root {
+        --primary-color: #bb86fc;
+        --primary-variant: #3700b3;
+        --secondary-color: #03dac6;
+        --secondary-variant: #018786;
+        --background: #121212;
+        --surface: #1e1e1e;
+        --on-primary: #000000;
+        --on-secondary: #000000;
+        --on-background: #ffffff;
+        --on-surface: #ffffff;
+        --error: #cf6679;
+        --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.1);
+        --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.15);
+        --radius: 16px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .dark-mode {
+        --primary-color: #bb86fc;
+        --primary-variant: #3700b3;
+        --background: #121212;
+        --surface: #1e1e1e;
+        --on-primary: #000000;
+        --on-background: #ffffff;
+        --on-surface: #ffffff;
+        --error: #cf6679;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: var(--background);
+        color: var(--on-background);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        transition: var(--transition);
+      }
+
+      .container {
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+        animation: fadeIn 0.5s ease;
+      }
+
+      .card {
+        background-color: var(--surface);
+        border-radius: var(--radius);
+        padding: 40px;
+        box-shadow: var(--shadow-medium);
+        margin: 20px;
+        animation: scaleIn 0.4s ease;
+      }
+
+      .error-icon {
+        font-size: 64px;
+        color: var(--primary-color);
+        margin-bottom: 24px;
+      }
+
+      h1 {
+        font-size: 36px;
+        color: var(--primary-color);
+        margin-bottom: 16px;
+      }
+
+      p {
+        font-size: 18px;
+        line-height: 1.6;
+        color: var(--on-surface);
+        margin-bottom: 32px;
+        opacity: 0.8;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background-color: var(--primary-color);
+        color: var(--on-primary);
+        padding: 12px 24px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: var(--transition);
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        background-color: var(--primary-variant);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-medium);
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      @keyframes scaleIn {
+        from { 
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to { 
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .card {
+          padding: 24px;
+          margin: 12px;
+        }
+
+        h1 {
+          font-size: 28px;
+        }
+
+        p {
+          font-size: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <iconify-icon class="error-icon" icon="line-md:alert"></iconify-icon>
+        <h1>Page Not Found</h1>
+        <p>The page you're looking for doesn't exist or has been moved. Let's get you back on track!</p>
+        <a href="/" class="btn">
+          <iconify-icon icon="line-md:home"></iconify-icon>
+          Back to Home
+        </a>
+      </div>
+    </div>
+
+    <script>
+      // Check for saved theme preference
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+      }
+    </script>
+  </body>
+</html>
