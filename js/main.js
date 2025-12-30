@@ -7,6 +7,8 @@ const staticProjects = [
   }
 ];
 
+christmasOverlaySnow.enable();
+
 let allProjects = [];
 let pinnedProjects = [];
 let otherProjects = [];
