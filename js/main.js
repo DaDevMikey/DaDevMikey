@@ -10,7 +10,7 @@ const staticProjects = [
 christmasOverlaySnow.enable();
 
 const fireworks = new FireworksOverlay();
-fireworks.startAnimation();
+fireworks.stopAnimation();
 
 let allProjects = [];
 let pinnedProjects = [];
