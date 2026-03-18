@@ -7,7 +7,7 @@ const staticProjects = [
   }
 ];
 
-christmasOverlaySnow.enable();
+christmasOverlaySnow.disable();
 
 const fireworks = new FireworksOverlay();
 fireworks.stopAnimation();
