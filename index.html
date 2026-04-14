@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="logo-text-sqaure.png">
   <script src="https://dadevmikey.github.io/The-Holiday-Library/ChristmasOverlay.js"></script>
-<script src="https://dadevmikey.github.io/The-Holiday-Library/NewYearsOverlay.js"></script>
+  <script src="https://dadevmikey.github.io/The-Holiday-Library/NewYearsOverlay.js"></script>
 </head>
 <body>
   <div class="glass-overlay"></div>
@@ -49,8 +49,7 @@
       </div>
       
       <div class="project-grid" id="projectGrid">
-        <!-- Projects will be loaded dynamically -->
-      </div>
+        </div>
     </section>
 
     <section id="contact" class="contact">
@@ -105,7 +104,7 @@
   </footer>
 
   <script type="module" src="js/main.js"></script>
-</body>
+
   <style>
   /* Overlay - Sleek and dark */
   #nexas-overlay {
@@ -185,59 +184,59 @@
     text-decoration: underline;
   }
   .close-btn:hover { color: #0f172a; }
-</style>
+  </style>
 
-<div id="nexas-overlay">
-  <div class="nexas-card">
-    
-    <h2>Website Update</h2>
-    
-    <p>Please note that Nexas Studios will no longer have its own dedicated website.</p>
-    
-    <p>Nexas will continue operating in the background, and all related content and future updates will now be available over at <strong>DaManMikey.me</strong>.</p>
-    
-    <a href="https://damanmikey.me" class="nexas-btn">Visit DaManMikey.me</a>
-    
-    <div class="footer-actions">
-      <label class="checkbox-wrapper">
-        <input type="checkbox" id="nexasDontShow"> Don't show this message again
-      </label>
-      <button class="close-btn" onclick="closeNexasPopup()">Close</button>
+  <div id="nexas-overlay">
+    <div class="nexas-card">
+      
+      <h2>Website Update</h2>
+      
+      <p>Please note that Nexas Studios will no longer have its own dedicated website.</p>
+      
+      <p>Nexas will continue operating in the background, and all related content and future updates will now be available over at <strong>DaManMikey.me</strong>.</p>
+      
+      <a href="https://damanmikey.me" class="nexas-btn">Visit DaManMikey.me</a>
+      
+      <div class="footer-actions">
+        <label class="checkbox-wrapper">
+          <input type="checkbox" id="nexasDontShow"> Don't show this message again
+        </label>
+        <button class="close-btn" onclick="closeNexasPopup()">Close</button>
+      </div>
+
     </div>
-
   </div>
-</div>
 
-<script>
-  const nexasOverlay = document.getElementById('nexas-overlay');
-  const nexasCard = nexasOverlay.querySelector('.nexas-card');
-  // Changed the storage key so it resets if you were testing the old one
-  const isNexasBlocked = localStorage.getItem('nexasUpdateBlocked_v2');
+  <script>
+    const nexasOverlay = document.getElementById('nexas-overlay');
+    const nexasCard = nexasOverlay.querySelector('.nexas-card');
+    const isNexasBlocked = localStorage.getItem('nexasUpdateBlocked_v2');
 
-  if (!isNexasBlocked) {
-    window.addEventListener('DOMContentLoaded', () => {
-      nexasOverlay.style.display = 'flex';
+    if (!isNexasBlocked) {
+      window.addEventListener('DOMContentLoaded', () => {
+        nexasOverlay.style.display = 'flex';
+        
+        setTimeout(() => {
+          nexasOverlay.classList.add('show-overlay');
+          nexasCard.classList.add('show-card');
+        }, 100);
+      });
+    }
+
+    function closeNexasPopup() {
+      const checkbox = document.getElementById('nexasDontShow');
+      
+      if (checkbox.checked) {
+        localStorage.setItem('nexasUpdateBlocked_v2', 'true');
+      }
+      
+      nexasOverlay.classList.remove('show-overlay');
+      nexasCard.classList.remove('show-card');
       
       setTimeout(() => {
-        nexasOverlay.classList.add('show-overlay');
-        nexasCard.classList.add('show-card');
-      }, 100);
-    });
-  }
-
-  function closeNexasPopup() {
-    const checkbox = document.getElementById('nexasDontShow');
-    
-    if (checkbox.checked) {
-      localStorage.setItem('nexasUpdateBlocked_v2', 'true');
+        nexasOverlay.style.display = 'none';
+      }, 500);
     }
-    
-    nexasOverlay.classList.remove('show-overlay');
-    nexasCard.classList.remove('show-card');
-    
-    setTimeout(() => {
-      nexasOverlay.style.display = 'none';
-    }, 500);
-  }
-</script>
+  </script>
+</body>
 </html>
