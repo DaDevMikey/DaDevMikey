@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'https://esm.sh/react@18.3.1';
+import React, { useMemo, useState } from 'https://esm.sh/react@18.3.1';
 import { createRoot } from 'https://esm.sh/react-dom@18.3.1/client';
 
 const collaborators = [
@@ -35,29 +35,10 @@ const ventures = [
   }
 ];
 
-const principles = [
-  {
-    icon: 'mdi-shimmer',
-    title: 'Cleaner first impressions',
-    text: 'The new homepage focuses on identity, collaborators, and product momentum instead of a public GitHub project list.'
-  },
-  {
-    icon: 'mdi-creation',
-    title: 'Built around momentum',
-    text: 'Collaborations and internal ventures now share a single polished story with modern motion, depth, and clarity.'
-  },
-  {
-    icon: 'mdi-water',
-    title: 'Transition with history',
-    text: 'The previous website still greets you first, then hands over to the new experience with one continuous, fluid motion.'
-  }
-];
-
 const quickStats = [
   { value: '4', label: 'featured brands' },
   { value: '2', label: 'live collaborations' },
-  { value: '2', label: 'owned ventures' },
-  { value: '1', label: 'new direction' }
+  { value: '2', label: 'owned ventures' }
 ];
 
 const contactLinks = [
@@ -83,53 +64,35 @@ const contactLinks = [
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [introStage, setIntroStage] = useState('welcome');
-
-  useEffect(() => {
-    document.body.classList.toggle('menu-open', menuOpen);
-    return () => document.body.classList.remove('menu-open');
-  }, [menuOpen]);
-
-  useEffect(() => {
-    if (introStage !== 'reveal') return undefined;
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const finishTimer = window.setTimeout(() => setIntroStage('done'), reducedMotion ? 150 : 1250);
-    return () => window.clearTimeout(finishTimer);
-  }, [introStage]);
 
   const featuredBrands = useMemo(() => [...collaborators, ...ventures], []);
 
   const closeMenu = () => setMenuOpen(false);
-  const enterSite = () => setIntroStage('reveal');
-  const skipIntro = () => setIntroStage('done');
 
   return React.createElement(
     React.Fragment,
     null,
-    introStage !== 'done' && React.createElement(IntroOverlay, { introStage, enterSite, skipIntro }),
     React.createElement(
       'div',
-      { className: `site-shell ${introStage === 'welcome' ? 'site-shell--intro' : ''}` },
+      { className: 'site-shell' },
       React.createElement(Header, { menuOpen, setMenuOpen, closeMenu }),
       React.createElement(
         'main',
         null,
         React.createElement(Hero, { featuredBrands }),
         React.createElement(QuickStats),
-        React.createElement(SectionStory),
         React.createElement(BrandGridSection, {
           id: 'partners',
           eyebrow: 'Worked with',
           title: 'Partners already in the story.',
-          description: 'The public face of the studio now starts with the names and launches that matter most.',
+          description: 'The public face of the studio starts with the names and launches that matter most.',
           items: collaborators
         }),
-        React.createElement(PrinciplesSection),
         React.createElement(BrandGridSection, {
           id: 'ventures',
           eyebrow: 'Built in-house',
           title: 'Ventures we are actively shaping.',
-          description: 'These internal products carry the same visual ambition as the new site itself.',
+          description: 'These internal products carry the same visual ambition as the studio itself.',
           items: ventures
         }),
         React.createElement(ContactSection)
@@ -137,96 +100,7 @@ function App() {
       React.createElement(
         'footer',
         { className: 'site-footer' },
-        React.createElement('p', null, '2018-2026 Nexas Studios'),
-        React.createElement('p', null, 'Legacy site preserved inside the intro transition.')
-      )
-    )
-  );
-}
-
-const introHighlights = [
-  { icon: 'mdi-account-group', text: 'Collaborators and in-house ventures now lead the homepage.' },
-  { icon: 'mdi-shimmer', text: 'A cleaner look with glass surfaces, depth, and calmer hierarchy.' },
-  { icon: 'mdi-history', text: 'The old site is preserved — it hands over right behind this card.' }
-];
-
-const introLinks = [...collaborators, ...ventures].map((brand) => ({
-  name: brand.name,
-  href: brand.href
-}));
-
-function IntroOverlay({ introStage, enterSite, skipIntro }) {
-  return React.createElement(
-    'div',
-    { className: `intro-overlay intro-overlay--${introStage}` },
-    React.createElement('iframe', {
-      className: 'intro-overlay__legacy',
-      src: 'legacy-site/index.html',
-      title: 'Legacy Nexas Studios website preview',
-      loading: 'eager',
-      tabIndex: -1,
-      'aria-hidden': true
-    }),
-    React.createElement('div', { className: 'intro-overlay__scrim' }),
-    React.createElement('div', { className: 'intro-overlay__orb intro-overlay__orb--one' }),
-    React.createElement('div', { className: 'intro-overlay__orb intro-overlay__orb--two' }),
-    React.createElement(
-      'div',
-      { className: 'intro-overlay__sheet-wrap' },
-      React.createElement(
-        'div',
-        { className: 'intro-overlay__sheet' },
-        React.createElement('span', { className: 'intro-overlay__eyebrow' }, 'Nexas Studios'),
-        React.createElement('h2', null, 'Welcome to the new site.'),
-        React.createElement(
-          'p',
-          null,
-          'The old portfolio you may remember is behind this card. Here is what changed before we take you in.'
-        ),
-        React.createElement(
-          'ul',
-          { className: 'intro-overlay__highlights' },
-          introHighlights.map((item) =>
-            React.createElement(
-              'li',
-              { key: item.text },
-              React.createElement('i', { className: `mdi ${item.icon}` }),
-              React.createElement('span', null, item.text)
-            )
-          )
-        ),
-        React.createElement(
-          'div',
-          { className: 'intro-overlay__links' },
-          introLinks.map((link) =>
-            React.createElement(
-              'a',
-              {
-                key: link.name,
-                href: link.href,
-                target: '_blank',
-                rel: 'noreferrer'
-              },
-              link.name,
-              React.createElement('i', { className: 'mdi mdi-arrow-top-right' })
-            )
-          )
-        ),
-        React.createElement(
-          'div',
-          { className: 'intro-overlay__actions' },
-          React.createElement(
-            'button',
-            { className: 'button button--primary intro-overlay__enter', type: 'button', onClick: enterSite },
-            React.createElement('i', { className: 'mdi mdi-arrow-right' }),
-            'Enter the new site'
-          ),
-          React.createElement(
-            'button',
-            { className: 'intro-overlay__skip', type: 'button', onClick: skipIntro },
-            'Skip'
-          )
-        )
+        React.createElement('p', null, '2018-2026 Nexas Studios')
       )
     )
   );
@@ -300,12 +174,12 @@ function Hero({ featuredBrands }) {
       React.createElement(
         'div',
         { className: 'hero-copy glass-card' },
-        React.createElement('span', { className: 'eyebrow' }, 'Completely reworked'),
-        React.createElement('h1', null, 'A sharper studio site built around who we work with and what we are building.'),
+        React.createElement('span', { className: 'eyebrow' }, 'Nexas Studios'),
+        React.createElement('h1', null, 'A creative studio building collaborations and in-house ventures.'),
         React.createElement(
           'p',
           null,
-          'GitHub projects have moved out of the spotlight here. This homepage now leads with collaborators, owned ventures, and a much more cinematic first impression.'
+          'We partner with brands and build our own products — from live client websites to independently launched platforms.'
         ),
         React.createElement(
           'div',
@@ -380,38 +254,6 @@ function QuickStats() {
   );
 }
 
-function SectionStory() {
-  return React.createElement(
-    'section',
-    { className: 'section-shell story-grid' },
-    React.createElement(
-      'article',
-      { className: 'glass-card story-card story-card--wide' },
-      React.createElement('span', { className: 'eyebrow' }, 'What changed'),
-      React.createElement('h2', null, 'The site is no longer a GitHub showcase.'),
-      React.createElement(
-        'p',
-        null,
-        'Instead of listing repositories, the new structure highlights collaborations and in-house ventures with a stronger visual identity, calmer hierarchy, and a more premium motion system.'
-      )
-    ),
-    React.createElement(
-      'article',
-      { className: 'glass-card story-card' },
-      React.createElement('i', { className: 'mdi mdi-blur' }),
-      React.createElement('h3', null, 'Blur-rich motion'),
-      React.createElement('p', null, 'Soft gradients, glow layers, and glass surfaces keep the redesign feeling modern without losing clarity.')
-    ),
-    React.createElement(
-      'article',
-      { className: 'glass-card story-card' },
-      React.createElement('i', { className: 'mdi mdi-water-circle' }),
-      React.createElement('h3', null, 'Fluid handoff'),
-      React.createElement('p', null, 'The opening welcome card introduces what changed, then the preserved legacy site flows away in one continuous, HarmonyOS-inspired motion.')
-    )
-  );
-}
-
 function BrandGridSection({ id, eyebrow, title, description, items }) {
   return React.createElement(
     'section',
@@ -449,33 +291,6 @@ function BrandGridSection({ id, eyebrow, title, description, items }) {
             'Visit website',
             React.createElement('i', { className: 'mdi mdi-arrow-top-right' })
           )
-        )
-      )
-    )
-  );
-}
-
-function PrinciplesSection() {
-  return React.createElement(
-    'section',
-    { className: 'section-shell principles-section' },
-    React.createElement(
-      'div',
-      { className: 'section-heading' },
-      React.createElement('span', { className: 'eyebrow' }, 'Design direction'),
-      React.createElement('h2', null, 'Why this overhaul feels different.'),
-      React.createElement('p', null, 'The redesign trades clutter for storytelling, signal, and a more intentional visual system.')
-    ),
-    React.createElement(
-      'div',
-      { className: 'principles-grid' },
-      principles.map((item) =>
-        React.createElement(
-          'article',
-          { key: item.title, className: 'glass-card principle-card' },
-          React.createElement('i', { className: `mdi ${item.icon}` }),
-          React.createElement('h3', null, item.title),
-          React.createElement('p', null, item.text)
         )
       )
     )
