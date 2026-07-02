@@ -1,0 +1,242 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexas Studios - Professional Web Solutions</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="logo-text-sqaure.png">
+  <script src="https://dadevmikey.github.io/The-Holiday-Library/ChristmasOverlay.js"></script>
+  <script src="https://dadevmikey.github.io/The-Holiday-Library/NewYearsOverlay.js"></script>
+</head>
+<body>
+  <div class="glass-overlay"></div>
+  <header>
+    <nav>
+      <div class="logo">
+        <img src="logo-text-sqaure-transparent.png" alt="Nexas Studios Logo">
+      </div>
+      <ul class="nav-links">
+        <li><a href="#home"><i class="mdi mdi-home"></i> Home</a></li>
+        <li><a href="#projects"><i class="mdi mdi-lightbulb-on"></i> Projects</a></li>
+        <li><a href="https://github.com/DaDevMikey" target="_blank"><i class="mdi mdi-github"></i> GitHub</a></li>
+        <li><a href="#contact"><i class="mdi mdi-message"></i> Contact</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <h1 class="slide-in">Crafting Digital Experiences</h1>
+        <p class="fade-in">We create innovative web solutions that combine creativity with functionality.</p>
+        <a href="#projects" class="cta-button pulse"><i class="mdi mdi-chevron-down"></i> View Our Projects</a>
+      </div>
+      <div class="hero-background"></div>
+    </section>
+
+    <section id="projects" class="projects">
+      <h2 class="section-title">Projects</h2>
+      <div class="search-container">
+        <i class="mdi mdi-magnify search-icon"></i>
+        <input type="text" id="projectSearch" placeholder="Search projects...">
+      </div>
+      
+      <div class="project-grid" id="projectGrid">
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <h2 class="section-title">Connect With Us</h2>
+      <p>Let's collaborate on your next project</p>
+      <div class="social-links">
+        <a href="https://github.com/DevMikey123" target="_blank" class="social-link hover-float">
+          <i class="mdi mdi-github"></i>
+          <span>DevMikey123</span>
+        </a>
+        <a href="https://github.com/DaDevMikey" target="_blank" class="social-link hover-float">
+          <i class="mdi mdi-github"></i>
+          <span>DaDevMikey</span>
+        </a>
+        <div class="dropdown">
+          <button class="social-link hover-float dropdown-toggle">
+            <i class="mdi mdi-discord"></i>
+            <span>Discord</span>
+            <i class="mdi mdi-chevron-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <p><i class="mdi mdi-account"></i> DaManMikey</p>
+          </div>
+        </div>
+        <a href="https://discord.gg/4CgUqedFX5" target="_blank" class="social-link hover-float">
+          <i class="mdi mdi-discord"></i>
+          <span>Join our Discord</span>
+        </a>
+        <a href="https://g.page/r/CYHXcT-lwd6eEBM/review" target="_blank" class="social-link review-link hover-float">
+          <i class="mdi mdi-star"></i>
+          <span>Review Us</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="history">
+      <h2 class="section-title">A bit of our history</h2>
+      <div class="history-content">
+        <div class="timeline-item">
+          <h3><i class="mdi mdi-history"></i> MinecraftMikey20 Studios (2018-2021)</h3>
+          <p>Also known as MiniMine Productions</p>
+        </div>
+        <p class="history-description">
+          <i class="mdi mdi-information"></i> The name was changed to better reflect our professional growth and evolution from a Minecraft-focused brand to a comprehensive web development studio. This change represents our commitment to delivering professional web solutions across various industries.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><i class="mdi mdi-copyright"></i> 2018-2025 Nexas Studios</p>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+
+  <style>
+  /* Overlay - Sleek and dark */
+  #nexas-overlay {
+    display: none;
+    position: fixed;
+    z-index: 99999;
+    left: 0; top: 0; width: 100%; height: 100%;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(8px);
+    align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.5s ease;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  /* Modal Card */
+  .nexas-card {
+    background: #ffffff;
+    width: 90%; max-width: 480px;
+    padding: 45px 40px; 
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+    transform: translateY(20px);
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    border: 1px solid #e2e8f0;
+  }
+
+  .show-overlay { opacity: 1 !important; }
+  .show-card { transform: translateY(0) !important; }
+
+  /* Typography */
+  .nexas-card h2 { 
+    margin-top: 0; color: #0f172a; font-size: 22px; font-weight: 700; 
+    letter-spacing: -0.5px;
+    margin-bottom: 20px;
+  }
+  .nexas-card p { 
+    color: #475569; line-height: 1.7; margin-bottom: 15px; font-size: 15px;
+    text-align: left;
+  }
+
+  /* Premium Animated Button */
+  .nexas-btn {
+    display: block; width: 100%; box-sizing: border-box;
+    margin-top: 25px;
+    padding: 15px; 
+    color: #ffffff; text-decoration: none; font-weight: 600; font-size: 15px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #0f172a 0%, #334155 51%, #0f172a 100%);
+    background-size: 200% auto;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+  }
+  
+  .nexas-btn:hover { 
+    background-position: right center; 
+    transform: translateY(-2px); 
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.25); 
+  }
+  .nexas-btn:active { transform: scale(0.99); }
+
+  /* Checkbox & Close */
+  .footer-actions { 
+    margin-top: 25px; display: flex; flex-direction: column; align-items: center; gap: 12px; 
+  }
+  
+  .checkbox-wrapper { 
+    display: flex; align-items: center; font-size: 13px; color: #64748b; cursor: pointer; transition: color 0.2s;
+  }
+  .checkbox-wrapper:hover { color: #0f172a; }
+  .checkbox-wrapper input { margin-right: 8px; width: 15px; height: 15px; cursor: pointer; }
+  
+  .close-btn { 
+    background: transparent; border: none;
+    padding: 10px 20px; cursor: pointer; 
+    color: #94a3b8; font-weight: 500; font-size: 14px; transition: all 0.2s; 
+    text-decoration: underline;
+  }
+  .close-btn:hover { color: #0f172a; }
+  </style>
+
+  <div id="nexas-overlay">
+    <div class="nexas-card">
+      
+      <h2>Website Update</h2>
+      
+      <p>Please note that Nexas Studios will no longer have its own dedicated website.</p>
+      
+      <p>Nexas will continue operating in the background, and all related content and future updates will now be available over at <strong>DaManMikey.me</strong>.</p>
+      
+      <a href="https://damanmikey.me/?source=nexas" class="nexas-btn">Visit DaManMikey.me</a>
+      
+      <div class="footer-actions">
+        <label class="checkbox-wrapper">
+          <input type="checkbox" id="nexasDontShow"> Don't show this message again
+        </label>
+        <button class="close-btn" onclick="closeNexasPopup()">Close</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const nexasOverlay = document.getElementById('nexas-overlay');
+    const nexasCard = nexasOverlay.querySelector('.nexas-card');
+    const isNexasBlocked = localStorage.getItem('nexasUpdateBlocked_v2');
+
+    if (!isNexasBlocked) {
+      window.addEventListener('DOMContentLoaded', () => {
+        nexasOverlay.style.display = 'flex';
+        
+        setTimeout(() => {
+          nexasOverlay.classList.add('show-overlay');
+          nexasCard.classList.add('show-card');
+        }, 100);
+      });
+    }
+
+    function closeNexasPopup() {
+      const checkbox = document.getElementById('nexasDontShow');
+      
+      if (checkbox.checked) {
+        localStorage.setItem('nexasUpdateBlocked_v2', 'true');
+      }
+      
+      nexasOverlay.classList.remove('show-overlay');
+      nexasCard.classList.remove('show-card');
+      
+      setTimeout(() => {
+        nexasOverlay.style.display = 'none';
+      }, 500);
+    }
+  </script>
+</body>
+</html>
