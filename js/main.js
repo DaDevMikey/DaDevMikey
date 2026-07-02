@@ -27,7 +27,7 @@ const ventures = [
     description: 'An upcoming budget game, Discord bot, and website hosting platform built for accessible launches.'
   },
   {
-    name: 'n0t.link',
+    name: 'n0t-link',
     href: 'https://n0tlink.vercel.app',
     category: 'In-house venture',
     status: 'Temporary live home',
@@ -49,7 +49,7 @@ const principles = [
   {
     icon: 'mdi-water',
     title: 'Transition with history',
-    text: 'The previous website still lives on through the intro sequence so the redesign feels like an evolution instead of a reset.'
+    text: 'The previous website still greets you first, then hands over to the new experience with one continuous, fluid motion.'
   }
 ];
 
@@ -83,39 +83,33 @@ const contactLinks = [
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [introStage, setIntroStage] = useState('legacy');
-
-  useEffect(() => {
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const rippleDelay = reducedMotion ? 120 : 650;
-    const finishDelay = reducedMotion ? 200 : 2200;
-
-    const rippleTimer = window.setTimeout(() => setIntroStage('ripple'), rippleDelay);
-    const finishTimer = window.setTimeout(() => setIntroStage('done'), finishDelay);
-
-    return () => {
-      window.clearTimeout(rippleTimer);
-      window.clearTimeout(finishTimer);
-    };
-  }, []);
+  const [introStage, setIntroStage] = useState('welcome');
 
   useEffect(() => {
     document.body.classList.toggle('menu-open', menuOpen);
     return () => document.body.classList.remove('menu-open');
   }, [menuOpen]);
 
+  useEffect(() => {
+    if (introStage !== 'reveal') return undefined;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const finishTimer = window.setTimeout(() => setIntroStage('done'), reducedMotion ? 150 : 1250);
+    return () => window.clearTimeout(finishTimer);
+  }, [introStage]);
+
   const featuredBrands = useMemo(() => [...collaborators, ...ventures], []);
 
   const closeMenu = () => setMenuOpen(false);
+  const enterSite = () => setIntroStage('reveal');
   const skipIntro = () => setIntroStage('done');
 
   return React.createElement(
     React.Fragment,
     null,
-    introStage !== 'done' && React.createElement(IntroOverlay, { introStage, skipIntro }),
+    introStage !== 'done' && React.createElement(IntroOverlay, { introStage, enterSite, skipIntro }),
     React.createElement(
       'div',
-      { className: `site-shell ${introStage !== 'done' ? 'site-shell--intro' : ''}` },
+      { className: `site-shell ${introStage === 'welcome' ? 'site-shell--intro' : ''}` },
       React.createElement(Header, { menuOpen, setMenuOpen, closeMenu }),
       React.createElement(
         'main',
@@ -150,7 +144,18 @@ function App() {
   );
 }
 
-function IntroOverlay({ introStage, skipIntro }) {
+const introHighlights = [
+  { icon: 'mdi-account-group', text: 'Collaborators and in-house ventures now lead the homepage.' },
+  { icon: 'mdi-shimmer', text: 'A cleaner look with glass surfaces, depth, and calmer hierarchy.' },
+  { icon: 'mdi-history', text: 'The old site is preserved — it hands over right behind this card.' }
+];
+
+const introLinks = [...collaborators, ...ventures].map((brand) => ({
+  name: brand.name,
+  href: brand.href
+}));
+
+function IntroOverlay({ introStage, enterSite, skipIntro }) {
   return React.createElement(
     'div',
     { className: `intro-overlay intro-overlay--${introStage}` },
@@ -158,22 +163,71 @@ function IntroOverlay({ introStage, skipIntro }) {
       className: 'intro-overlay__legacy',
       src: 'legacy-site/index.html',
       title: 'Legacy Nexas Studios website preview',
-      loading: 'eager'
+      loading: 'eager',
+      tabIndex: -1,
+      'aria-hidden': true
     }),
     React.createElement('div', { className: 'intro-overlay__scrim' }),
-    React.createElement('div', { className: 'intro-overlay__ripple intro-overlay__ripple--one' }),
-    React.createElement('div', { className: 'intro-overlay__ripple intro-overlay__ripple--two' }),
+    React.createElement('div', { className: 'intro-overlay__orb intro-overlay__orb--one' }),
+    React.createElement('div', { className: 'intro-overlay__orb intro-overlay__orb--two' }),
     React.createElement(
       'div',
-      { className: 'intro-overlay__copy' },
-      React.createElement('span', { className: 'intro-overlay__eyebrow' }, 'Nexas Studios'),
-      React.createElement('h2', null, 'From the old portfolio into a cleaner partnership-first launch.'),
-      React.createElement('p', null, 'The previous website stays preserved while the new experience takes over with ripple, blur, and depth.')
-    ),
-    React.createElement(
-      'button',
-      { className: 'intro-overlay__skip', type: 'button', onClick: skipIntro },
-      'Skip intro'
+      { className: 'intro-overlay__sheet-wrap' },
+      React.createElement(
+        'div',
+        { className: 'intro-overlay__sheet' },
+        React.createElement('span', { className: 'intro-overlay__eyebrow' }, 'Nexas Studios'),
+        React.createElement('h2', null, 'Welcome to the new site.'),
+        React.createElement(
+          'p',
+          null,
+          'The old portfolio you may remember is behind this card. Here is what changed before we take you in.'
+        ),
+        React.createElement(
+          'ul',
+          { className: 'intro-overlay__highlights' },
+          introHighlights.map((item) =>
+            React.createElement(
+              'li',
+              { key: item.text },
+              React.createElement('i', { className: `mdi ${item.icon}` }),
+              React.createElement('span', null, item.text)
+            )
+          )
+        ),
+        React.createElement(
+          'div',
+          { className: 'intro-overlay__links' },
+          introLinks.map((link) =>
+            React.createElement(
+              'a',
+              {
+                key: link.name,
+                href: link.href,
+                target: '_blank',
+                rel: 'noreferrer'
+              },
+              link.name,
+              React.createElement('i', { className: 'mdi mdi-arrow-top-right' })
+            )
+          )
+        ),
+        React.createElement(
+          'div',
+          { className: 'intro-overlay__actions' },
+          React.createElement(
+            'button',
+            { className: 'button button--primary intro-overlay__enter', type: 'button', onClick: enterSite },
+            React.createElement('i', { className: 'mdi mdi-arrow-right' }),
+            'Enter the new site'
+          ),
+          React.createElement(
+            'button',
+            { className: 'intro-overlay__skip', type: 'button', onClick: skipIntro },
+            'Skip'
+          )
+        )
+      )
     )
   );
 }
@@ -352,8 +406,8 @@ function SectionStory() {
       'article',
       { className: 'glass-card story-card' },
       React.createElement('i', { className: 'mdi mdi-water-circle' }),
-      React.createElement('h3', null, 'Ripple handoff'),
-      React.createElement('p', null, 'The opening transition uses the preserved legacy site as the starting point before revealing the new direction underneath.')
+      React.createElement('h3', null, 'Fluid handoff'),
+      React.createElement('p', null, 'The opening welcome card introduces what changed, then the preserved legacy site flows away in one continuous, HarmonyOS-inspired motion.')
     )
   );
 }
