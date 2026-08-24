@@ -8,83 +8,93 @@
   <link rel="icon" type="image/png" href="logo-text-sqaure.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
   <style>
     :root {
-      --bg: #060b15;
-      --surface: rgba(16, 30, 50, 0.88);
-      --line: rgba(133, 174, 209, 0.24);
-      --text: #edf3ff;
-      --muted: #a6bdd9;
-      --brand: #2ac6c9;
-      --focus: #45d1d4;
-      --shadow: 0 26px 70px rgba(3, 9, 20, 0.5);
-      --radius-lg: 32px;
-      --radius-sm: 16px;
+      --bg: #06090e;
+      --surface: rgba(13, 20, 32, 0.85);
+      --border: rgba(148, 163, 184, 0.14);
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --cyan: #06b6d4;
+      --cyan-glow: rgba(6, 182, 212, 0.2);
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+      --radius-lg: 24px;
+      --radius-sm: 12px;
     }
 
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
       min-height: 100vh;
-      font-family: 'Manrope', sans-serif;
-      color: var(--text);
-      background: radial-gradient(circle at 10% 20%, rgba(42, 198, 201, 0.12), transparent 35%), var(--bg);
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      color: var(--text-secondary);
+      background: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(6, 182, 212, 0.15), transparent 70%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(59, 130, 246, 0.08), transparent 70%),
+        var(--bg);
       display: grid;
       place-items: center;
-      padding: 20px;
+      padding: 24px;
     }
 
     .card {
-      width: min(620px, 100%);
+      width: min(580px, 100%);
       border-radius: var(--radius-lg);
-      border: 1px solid var(--line);
+      border: 1px solid var(--border);
       background: var(--surface);
       box-shadow: var(--shadow);
-      padding: 34px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 44px 36px;
       text-align: center;
     }
 
     .logo {
-      width: 72px;
-      height: 72px;
-      object-fit: contain;
-      margin-bottom: 16px;
+      width: 64px;
+      height: 64px;
+      border-radius: var(--radius-sm);
+      object-fit: cover;
+      margin: 0 auto 20px;
+      border: 1px solid var(--border);
     }
 
     .eyebrow {
-      display: inline-flex;
-      margin-bottom: 14px;
+      display: inline-block;
+      margin-bottom: 12px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      font-size: 0.74rem;
+      font-size: 0.78rem;
       font-weight: 800;
-      color: #9fc2e3;
+      color: var(--cyan);
     }
 
     h1 {
-      margin: 0;
       font-family: 'Sora', sans-serif;
-      font-size: clamp(2rem, 6vw, 2.9rem);
-      letter-spacing: -0.04em;
+      font-size: clamp(2rem, 5vw, 2.6rem);
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      margin-bottom: 14px;
     }
 
     p {
-      margin: 14px auto 0;
+      margin: 0 auto 28px;
       max-width: 44ch;
-      color: var(--muted);
+      color: var(--text-muted);
       line-height: 1.65;
+      font-size: 0.98rem;
     }
 
     .actions {
-      margin-top: 26px;
       display: flex;
       justify-content: center;
-      gap: 10px;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
@@ -94,61 +104,64 @@
       justify-content: center;
       gap: 8px;
       text-decoration: none;
-      border-radius: 999px;
-      padding: 13px 20px;
+      border-radius: 9999px;
+      padding: 12px 24px;
       border: 0;
-      font-weight: 800;
-      font: inherit;
+      font-weight: 600;
+      font-size: 0.92rem;
       cursor: pointer;
-      transition: 0.24s;
+      transition: all 0.25s ease;
     }
 
     .button--primary {
-      background: var(--brand);
-      color: #fff;
+      background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 20px rgba(6, 182, 212, 0.35);
+    }
+
+    .button--primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 26px rgba(6, 182, 212, 0.5);
     }
 
     .button--secondary {
-      color: var(--text);
-      background: rgba(20, 34, 54, 0.72);
-      border: 1px solid var(--line);
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
     }
 
-    .button:hover {
+    .button--secondary:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: var(--cyan);
       transform: translateY(-2px);
-    }
-
-    a:focus-visible,
-    button:focus-visible {
-      outline: 2px solid var(--focus);
-      outline-offset: 3px;
     }
 
     @media (max-width: 600px) {
       .card {
-        padding: 24px;
-        border-radius: var(--radius-sm);
+        padding: 32px 20px;
+      }
+      .button {
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
   <article class="card">
-    <img class="logo" src="logo-text-sqaure-transparent.png" alt="Nexas Studios logo">
+    <img class="logo" src="logo-3A4v6HJTGP8k26BXcVrTNrnjRUV.png" alt="Nexas Studios logo">
     <span class="eyebrow">404 Error</span>
-    <h1>Page not found</h1>
+    <h1>Page Not Found</h1>
     <p>
-      The page you are looking for may have been moved, renamed, or no longer exists.
-      You can return to the homepage or go back to the previous page.
+      The page you requested could not be located. Return to the Nexas Studios homepage or navigate back.
     </p>
     <div class="actions">
       <a href="/" class="button button--primary">
         <i class="mdi mdi-home-outline" aria-hidden="true"></i>
-        Back to home
+        <span>Back to Home</span>
       </a>
       <button type="button" class="button button--secondary" onclick="window.history.back()">
         <i class="mdi mdi-arrow-left" aria-hidden="true"></i>
-        Go back
+        <span>Go Back</span>
       </button>
     </div>
   </article>
